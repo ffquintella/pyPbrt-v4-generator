@@ -108,6 +108,10 @@ class SceneElement:
     def help(cls):
         webbrowser.open("https://pbrt.org/fileformat-v4")
 
+    @classmethod
+    def class_name(cls):
+        return cls.__name__
+
     def add_args(self, new_args):
         new = self.copy()
         new.args += new_args

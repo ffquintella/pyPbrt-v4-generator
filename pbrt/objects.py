@@ -1,4 +1,4 @@
-from scene import *
+from pbrt.scene import *
 
 class Camera(SceneElement):
     """Camera( *[CAMERA_ITEMS...] )

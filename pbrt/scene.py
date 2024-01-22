@@ -2,6 +2,7 @@ from copy import deepcopy
 from io import *
 import re
 import webbrowser
+from .helpers import  vectorize, format_if_necessary
 class Scene:
     """ A scene contains Items and can be written to a file.
 

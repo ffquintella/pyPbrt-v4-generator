@@ -3,6 +3,8 @@ from io import *
 import re
 import webbrowser
 from .helpers import  vectorize, format_if_necessary
+from .objects import Sampler, Integrator
+
 class Scene:
     """ A scene contains Items and can be written to a file.
 
@@ -17,7 +19,6 @@ class Scene:
     def __init__(self, camera, objects=[], atmospheric=[],
                  included=[], defaults=[], global_settings=[],
                  declares=[]):
-
         self.camera = camera
         self.objects = objects
         self.atmospheric = atmospheric
@@ -25,7 +26,12 @@ class Scene:
         self.defaults = defaults
         self.declares = declares
         self.global_settings = global_settings
+        self.load_defaults()
 
+    def load_defaults(self):
+        """ Loads the default settings from a file """
+        if len(self.global_settings) == 0:
+            self.global_settings = [Sampler(128), Integrator("volpath")]
 
     def __str__(self):
 
@@ -33,11 +39,13 @@ class Scene:
         defaults = ['#default { %s }'%e for e in self.defaults]
         declares = ['#declare %s;'%e for e in self.declares]
 
-        global_settings = ["global_settings{\n%s\n}"%("\n".join(
+        global_settings = ["######\n%s\n#####"%("".join(
                            [str(e) for e in self.global_settings]))]
+        wbegin = ["WorldBegin"]
+
         return '\n'.join([str(e)
                           for l in  [included, declares, self.objects, [self.camera],
-                              self.atmospheric, global_settings]
+                              self.atmospheric, global_settings, wbegin]
                           for e in l])
 
 
@@ -92,35 +100,5 @@ class Scene:
                                 quality, antialiasing, remove_temp, show_window,
                                 tempfile, includedirs, output_alpha)
 
-class SceneElement:
-    def __init__(self, *args):
-        self.args = list(args)
 
-    def copy(self):
-        return deepcopy(self)
-
-    @classmethod
-    def transformed_name(cls):
-        """ Tranform Sphere=>sphere, and LightSource=>light_source """
-        return re.sub(r'(?!^)([A-Z])', r'_\1', cls.__name__)
-
-    @classmethod
-    def help(cls):
-        webbrowser.open("https://pbrt.org/fileformat-v4")
-
-    @classmethod
-    def class_name(cls):
-        return cls.__name__
-
-    def add_args(self, new_args):
-        new = self.copy()
-        new.args += new_args
-        return new
-
-    def __str__(self):
-        # Tranforms Sphere=>sphere, and LightSource=>light_source
-        name = self.transformed_name().lower()
-
-        return "%s {\n%s \n}" % (name, "\n".join([str(format_if_necessary(e))
-                                                  for e in self.args]))
 

@@ -1,7 +1,7 @@
 from pbrt.scene import Scene
 from pbrt.objects import *
 
-scene = Scene( Camera(  [0,0,0], 'location', [1,1,1]),
+scene = Scene( Camera(  LookAt([0,0,0], [.5, .5, 0], [1,1,1])),
                 objects = [
 
                ]

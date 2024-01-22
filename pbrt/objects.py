@@ -27,7 +27,7 @@ class Camera(SceneElement):
          'optional', 'smooth'  'modifier', 'valid'  'only',
          'when'  'using', 'mesh_camera' """
 
-    def __init__(self, LookAt=[], *args):
+    def __init__(self, LookAt, *args):
         self.LookAt = LookAt
         self.args = list(args)
 
@@ -35,12 +35,33 @@ class Camera(SceneElement):
         # Tranforms Sphere=>sphere, and LightSource=>light_source
         name = self.class_name()
 
-        out = "LookAt %s %s %s" % (self.LookAt[0],
-                                   self.LookAt[1],
-                                   self.LookAt[2])
+        out = self.LookAt.__str__() + "\n" + "Camera \"perspective\" \"float fov\" 45 \n"
 
 
-        return "%s {\n%s \n}" % (name, out)
+        return out
 
-        #return "%s {\n%s \n}" % (name, "\n".join([str(format_if_necessary(e))
-        #                                          for e in self.args]))
+
+
+
+class LookAt(SceneElement):
+
+    def __init__(self, Eye=[], Focus=[], Up=[], *args):
+        self.Eye = Eye
+        self.Focus = Focus
+        self.Up = Up
+        self.args = list(args)
+
+    def __str__(self):
+        # Tranforms Sphere=>sphere, and LightSource=>light_source
+        name = self.class_name()
+
+        out = '''LookAt {eye_x} {eye_y} {eye_z} # eye \n\
+       {focus_x} {focus_y} {focus_z} #focus point \n\
+       {up_x} {up_y} {up_z} #up vector'''.format(name=name,
+                   eye_x=self.Eye[0], eye_y=self.Eye[1], eye_z=self.Eye[2],
+                   focus_x=self.Focus[0], focus_y=self.Focus[1], focus_z=self.Focus[2],
+                     up_x=self.Up[0], up_y=self.Up[1], up_z=self.Up[2]
+                   )
+
+
+        return out

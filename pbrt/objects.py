@@ -102,7 +102,7 @@ class LookAt(SceneElement):
         # Tranforms Sphere=>sphere, and LightSource=>light_source
         name = self.class_name()
 
-        out = '''LookAt {eye_x} {eye_y} {eye_z} # eye \n\
+        out = '''LookAt {eye_x} {eye_y} {eye_z} #eye \n\
     {focus_x} {focus_y} {focus_z} #focus point \n\
     {up_x} {up_y} {up_z} #up vector'''.format(name=name,
                    eye_x=self.Eye[0], eye_y=self.Eye[1], eye_z=self.Eye[2],

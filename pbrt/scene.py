@@ -44,8 +44,8 @@ class Scene:
         wbegin = ["WorldBegin"]
 
         return '\n'.join([str(e)
-                          for l in  [included, declares, self.objects, [self.camera],
-                              self.atmospheric, global_settings, wbegin]
+                          for l in [included, declares,  [self.camera],
+    self.atmospheric, global_settings, wbegin, self.objects,]
                           for e in l])
 
 

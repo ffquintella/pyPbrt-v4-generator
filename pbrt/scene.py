@@ -3,7 +3,7 @@ from io import *
 import re
 import webbrowser
 from .helpers import  vectorize, format_if_necessary
-from .objects import Sampler, Integrator
+from .global_objects import Sampler, Integrator
 
 class Scene:
     """ A scene contains Items and can be written to a file.

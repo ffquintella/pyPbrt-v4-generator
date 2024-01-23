@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "python",
+            "name": "Python configuration",
+            "file": "tests/base_test.py",
+            "arguments": [],
+        },
+        
+    ]
+}

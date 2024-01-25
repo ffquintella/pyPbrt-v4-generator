@@ -28,9 +28,28 @@ class LightSource(SceneElement):
 
 class Attribute(SceneElement):
 
-    def __init__(self, *args):
+    def __init__(self, elements=[], *args):
         self.args = list(args)
+        self.Elements = elements
         super(Attribute, self).__init__(args)
 
     def __str__(self):
-        return ""
+
+        out = "AttributeBegin\n"
+
+        out += out.join(str(e) for e in self.Elements)
+
+        out += "AttributeEnd\n"
+
+        return out
+
+class Material(SceneElement):
+
+    def __init__(self, Type, *args):
+        self.Type = Type
+        self.args = list(args)
+        super(Material, self).__init__(args)
+
+    def __str__(self):
+        out = "Material \"{type}\"\n".format(type=self.Type)
+        return out

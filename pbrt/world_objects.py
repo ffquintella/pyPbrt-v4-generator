@@ -25,3 +25,12 @@ class LightSource(SceneElement):
                                                                                       power=power_str,
                                                                                     spectrum=self.Spectrum)
         return out
+
+class Attribute(SceneElement):
+
+    def __init__(self, *args):
+        self.args = list(args)
+        super(Attribute, self).__init__(args)
+
+    def __str__(self):
+        return ""

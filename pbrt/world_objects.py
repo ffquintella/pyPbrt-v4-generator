@@ -24,7 +24,7 @@ class LightSource(SceneElement):
                                                                                     spectrum_power=spectrum_power,
                                                                                       power=power_str,
                                                                                     spectrum=self.Spectrum)
-        return out
+        return out + "\n"
 
 class Attribute(SceneElement):
 
@@ -36,9 +36,7 @@ class Attribute(SceneElement):
     def __str__(self):
 
         out = "AttributeBegin\n"
-
-        out += out.join(str(e) for e in self.Elements)
-
+        out += out.join( "  " + str(e) for e in self.Elements)
         out += "AttributeEnd\n"
 
         return out

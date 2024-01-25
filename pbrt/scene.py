@@ -41,7 +41,7 @@ class Scene:
 
         global_settings = ["######\n%s\n#####"%("".join(
                            [str(e) for e in self.global_settings]))]
-        wbegin = ["WorldBegin"]
+        wbegin = ["WorldBegin\n"]
 
         return '\n'.join([str(e)
                           for l in [included, declares,  [self.camera],
